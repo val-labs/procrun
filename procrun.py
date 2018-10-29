@@ -2,8 +2,8 @@
 procrun: process runner
 a cool process runner.
 """
-import os, sys, signal, threading, time, traceback
-__version__ = "1.4.0"
+import re, os, sys, signal, threading, time, traceback
+__version__ = "1.5.0"
 def suicide(*a): os.killpg(os.getpgid(os.getpid()), 9)
 def run_thread(f, *a): threading.Thread(target=f, args=a).start()
 class ProcessMixin:
@@ -30,5 +30,8 @@ class ProcessRunnerMixin(ProcessMixin):
     pass # end class ProcessRunnerMixin
 class ProcessRunner(ProcessRunnerMixin):
     def __init__(_, name): _.name = name
+    def cmd_loop(_, prefix, cmd):
+        cmd2 = re.sub(r'\$\((\w+)\)', lambda m: os.getenv(m.group(0)), cmd)
+        ProcessRunnerMixin.cmd_loop(_, prefix, cmd2)
     pass # end class ProcessRunner
 if __name__=='__main__': ProcessRunner(sys.argv[1]).start(open(sys.argv[2]))
