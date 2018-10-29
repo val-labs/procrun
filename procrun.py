@@ -1,7 +1,9 @@
-"""
+"""\
 procrun: process runner
+
+a cool process runner.
 """
-import os, signal, six, threading, time, traceback
+import os, signal, threading, time, traceback
 __version__ = "1.2.0"
 class ProcessRunnerMixin:
     def record_pid(_, procname):

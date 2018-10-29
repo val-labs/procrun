@@ -6,7 +6,8 @@ except ImportError:
 import procrun
 setup(name='procrun',
       version=procrun.__version__,
-      description=procrun.__doc__,
+      description=procrun.__doc__.split('\n')[0],
+      long_description=procrun.__doc__,
       py_modules=['procrun'],
       url='https://github.com/val-labs/procrun',
       license='MIT',
